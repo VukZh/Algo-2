@@ -2,7 +2,7 @@ package queuetest;
 
 public class PQueue<T> {
 
-    DArray<OList<T>> _pqueue;
+    private DArray<OList<T>> _pqueue;
     private int numPriority = 0;
 
     PQueue() {
