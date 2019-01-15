@@ -4,6 +4,13 @@ public class PQueue<T> {
 
     DArray<OList<T>> _pqueue;
     private int numPriority = 0;
+
+    PQueue() {
+        _pqueue = new DArray<OList<T>>();
+        OList<T> listEmpty = new OList<T>();
+        _pqueue.add(0, listEmpty);
+    }
+
     PQueue(int size) {
         numPriority = size;
         _pqueue = new DArray<OList<T>>();
@@ -18,13 +25,23 @@ public class PQueue<T> {
     }
 
     void enqueue(int priority, T item) {
-        if (priority <= 0 || priority > numPriority) {
-            System.out.println("Out of priority");
+        if (priority <= 0) {
+            System.out.println("Priority '< =' 0");
         } else {
+
+            if (priority >= _pqueue.size()) {
+                numPriority = _pqueue.size();
+                for (int i = numPriority; i <= priority; i++) {
+                    OList<T> listEmpty = new OList<T>();
+                    _pqueue.add(i, listEmpty);
+                }
+            }
             OList<T> x = _pqueue.get(priority);
             x.addFirst(item);
-            System.out.println("enqueue: " + item);
+//                System.out.println("enqueue: " + item);
         }
+        numPriority = _pqueue.size() - 1;
+//        System.out.println("--- size: " + (_pqueue.size()-1));
     }
 
     T dequeue() {
@@ -43,10 +60,10 @@ public class PQueue<T> {
             res = x.get(last);
             x.deleteLast();
         } else {
-            System.out.println("Queue is Empty");
+//            System.out.println("Queue is Empty");
             res = null;
         }
-        System.out.println("dequeue :" + res + "(priority " + lastPriority + ")");
+//        System.out.println("dequeue :" + res + "(priority " + lastPriority + ")");
         return res;
     }
 }
